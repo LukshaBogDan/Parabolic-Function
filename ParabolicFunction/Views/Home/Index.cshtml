@@ -1,0 +1,41 @@
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+<div style="display: flex; flex-direction: row;">
+    <div id="results" style="width: 50%; height: 600px;"><canvas id="myChart"></canvas></div>
+    @using (Ajax.BeginForm("BookSearch", new AjaxOptions { OnSuccess = "OnSuccess" }))
+    {
+        <div style="width: 100%; height: 600px;">
+            <span>Function: y=</span><input name="a" type="text" size="2" pattern="^[-.0-9]+$" title="Введите число" required><span>x^2 + </span><input name="b" type="text" size="2" pattern="^[-.0-9]+$" required><span>x + </span><input name="c" type="text" size="2" pattern="^[-.0-9]+$" required><br><br>
+            <span>Step: </span><input name="step" type="text" size="2" pattern="^[-.0-9]+$" required><br><br>
+            <span>From </span><input name="from" type="text" size="2" pattern="^[-.0-9]+$" required><span> to </span><input name="to" type="text" size="2" pattern="^[-.0-9]+$" required><br><br>
+            <input type="submit" value="Plot">
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function OnSuccess(data) {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var data1 = [];
+        var label1 = [];
+        for (var i = 0; i < data.length; i++) {
+            data1.push(data[i].PointY);
+            label1.push(data[i].PointX);
+        }
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: label1,
+                datasets: [{
+                    label: 'Parabolic Function',
+                    fill: false,
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: data1
+                }]
+            },
+            options: {
+            }
+        });
+    }
+</script>
+@Scripts.Render("~/scripts/jquery-3.3.1.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
