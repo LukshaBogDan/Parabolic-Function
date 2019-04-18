@@ -15,27 +15,13 @@ namespace ParabolicFunction.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         DataContext db = new DataContext();
 
         [HttpPost]
         public JsonResult BookSearch(string step, string from, string to, string a, string b, string c)
         {
-            var userData = new UserData() { RangeFrom = int.Parse(from), RangeTo = int.Parse(to),
-                Step = int.Parse(step), A = int.Parse(a), B = int.Parse(b), C = int.Parse(c)
+            var userData = new UserData() { RangeFrom = double.Parse(from), RangeTo = double.Parse(to),
+                Step = double.Parse(step), A = double.Parse(a), B = double.Parse(b), C = double.Parse(c)
             };
             db.UserData.Add(userData);
             db.SaveChanges();
@@ -49,10 +35,10 @@ namespace ParabolicFunction.Controllers
             List<MyPoint> mas = new List<MyPoint>();
             check(ref userData);
             int id = db.UserData.Max(p => p.UserDataId);
-            for (int i = userData.RangeFrom; i <= userData.RangeTo; i+=userData.Step)
+            for (double i = userData.RangeFrom; i <= userData.RangeTo; i+=userData.Step)
             {
-                int y = (int)(userData.A * Math.Pow(i, 2) + userData.B * i + userData.C);
-                MyPoint myPoint = new MyPoint() { ChartId = id, PointX = i, PointY = y };
+                double y = Math.Round(userData.A * Math.Pow(i, 2) + userData.B * i + userData.C, 3);
+                MyPoint myPoint = new MyPoint() { ChartId = id, PointX = Math.Round(i,3), PointY = y };
                 mas.Add(myPoint);
                 db.MyPoint.Add(myPoint);
             }
@@ -64,7 +50,7 @@ namespace ParabolicFunction.Controllers
         {
             if (userData.RangeTo < userData.RangeFrom)
             {
-                int c = userData.RangeTo;
+                double c = userData.RangeTo;
                 userData.RangeTo = userData.RangeFrom;
                 userData.RangeFrom = c;
             }

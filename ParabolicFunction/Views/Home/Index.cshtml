@@ -5,9 +5,9 @@
     @using (Ajax.BeginForm("BookSearch", new AjaxOptions { OnSuccess = "OnSuccess" }))
     {
         <div style="width: 100%; height: 600px;">
-            <span>Function: y=</span><input name="a" type="text" size="2" pattern="^[-.0-9]+$" title="Введите число" required><span>x^2 + </span><input name="b" type="text" size="2" pattern="^[-.0-9]+$" required><span>x + </span><input name="c" type="text" size="2" pattern="^[-.0-9]+$" required><br><br>
-            <span>Step: </span><input name="step" type="text" size="2" pattern="^[-.0-9]+$" required><br><br>
-            <span>From </span><input name="from" type="text" size="2" pattern="^[-.0-9]+$" required><span> to </span><input name="to" type="text" size="2" pattern="^[-.0-9]+$" required><br><br>
+            <span>Function: y=</span><input name="a" type="text" size="2" pattern="^[-,0-9]+$" title="Введите число" required><span>x^2 + </span><input name="b" type="text" size="2" pattern="^[-,0-9]+$" required><span>x + </span><input name="c" type="text" size="2" pattern="^[-.0-9]+$" required><br><br>
+            <span>Step: </span><input name="step" type="text" size="2" pattern="^[-,0-9]+$" required><br><br>
+            <span>From </span><input name="from" type="text" size="2" pattern="^[-,0-9]+$" required><span> to </span><input name="to" type="text" size="2" pattern="^[-,0-9]+$" required><br><br>
             <input type="submit" value="Plot">
         </div>
     }

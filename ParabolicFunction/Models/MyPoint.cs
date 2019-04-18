@@ -11,7 +11,7 @@ namespace ParabolicFunction.Models
         [Key]
         public int PointId { get; set; }
         public int ChartId { get; set; }
-        public int PointX { get; set; }
-        public int PointY { get; set; }
+        public double PointX { get; set; }
+        public double PointY { get; set; }
     }
 }
